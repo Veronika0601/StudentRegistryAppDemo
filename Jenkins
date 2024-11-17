@@ -1,45 +1,45 @@
-pipeline{
+pipeline {
     agent any
 
-    environment{
+    environment {
         NODE_VERSION = '20.x'
-
     }
-    tool{
+
+    tools {
         nodejs "${NODE_VERSION}"
     }
-    stages{
-        stage('Checkout'){
-            steps{
-                git branch: 'main', url: 'https://github.com/Veronika0601/StudentRegistryAppDemo'
 
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Veronika0601/StudentRegistryAppDemo'
             }
         }
-        stage('Install dependencies'){
-            steps{
-                script{
-                    {
-                        bat 'npm install'
+
+        stage('Install dependencies') {
+            steps {
+                script {
+                    bat 'npm install'
                 }
             }
-
         }
-        stage('Start application and run tests'){
-            steps{
-                script{
-                    bat 'npm start &'
+
+        stage('Start application and run tests') {
+            steps {
+                script {
+                    // Стартиране на приложението и изчакване да се стартира
+                    bat 'start /B npm start'
                     bat 'wait-on http://localhost:8090'
+                    // Стартиране на тестовете
                     bat 'npm test'
                 }
             }
-
         }
-
     }
-    post{
-        always{
+
+    post {
+        always {
             echo 'CI pipeline completed'
         }
     }
-}
 }
