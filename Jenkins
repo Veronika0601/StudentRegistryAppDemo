@@ -20,15 +20,22 @@ pipeline {
             }
         }
 
-        stage('Start application and run tests') {
+        stage('Start apllication and run tests') {
             steps {
                 script {
-                    // Стартиране на приложението и изчакване да се стартира
+                    
                     bat 'start /b npm start'
-                    bat 'wait-on http://localhost:8080'
-                    // Стартиране на тестовете
-                    bat 'npm test'
                 }
+
+            }
+        }
+        stage('run tests') {
+            steps {
+                script {
+                    /
+                    bat 'start npm test'
+                }
+                
             }
         }
     }
