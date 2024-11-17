@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Стартиране на приложението и изчакване да се стартира
-                    bat 'start /B npm start'
+                    bat 'start /b npm start'
                     bat 'wait-on http://localhost:8080'
                     // Стартиране на тестовете
                     bat 'npm test'
